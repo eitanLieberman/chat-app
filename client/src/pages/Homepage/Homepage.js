@@ -11,16 +11,12 @@ import Login from "../../components/Auth/Login";
 import Signup from "../../components/Auth/Signup";
 import { useDispatch } from "react-redux";
 const Homepage = () => {
-  const dispatch = useDispatch();
-
   const history = useNavigate();
-  const handleClick = async (e) => {
-    await logoutUser(dispatch);
-  };
+
   return (
     <Container maxW="xl" centerContent>
       <Box
-        // justifyContent="center"
+        justifyContent="center"
         d="flex"
         p={3}
         bg={"white"}
@@ -29,13 +25,7 @@ const Homepage = () => {
         borderRadius="1g"
         borderWidth="1px"
       >
-        <Button onClick={handleClick} style={{ float: "right" }}>
-          logout
-        </Button>
-        <Text
-          style={{ textAlign: "center", marginRight: "-50%" }}
-          fontSize="4xl"
-        >
+        <Text style={{ textAlign: "center" }} fontSize="4xl">
           Talks
         </Text>
       </Box>

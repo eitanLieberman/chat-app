@@ -37,6 +37,7 @@ const ProfileModal = ({ user, children }) => {
               src={user.pic}
               alt={user.username}
             />
+            {user.email}
           </ModalBody>
 
           <ModalFooter>

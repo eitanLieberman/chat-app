@@ -1,6 +1,6 @@
 import { FormControl } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Box, Text } from "@chakra-ui/layout";
+import { Box, Text, Stack } from "@chakra-ui/layout";
 import { Avatar } from "@chakra-ui/avatar";
 import { IconButton, Spinner, useToast, Button } from "@chakra-ui/react";
 import { getSender, getSenderFull } from "../../config/ChatLogics";
@@ -19,6 +19,8 @@ import io from "socket.io-client";
 const ENDPOINT = "http://localhost:8080";
 var socket, selectedChatCompare;
 const SingleChat = () => {
+  const objDiv = document.querySelector(".css-15bvnbz");
+
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -54,6 +56,8 @@ const SingleChat = () => {
 
     setLoading(false);
     socket.emit("join chat", selectedChat._id);
+    document.querySelector(".css-15bvnbz").scrollTop =
+      document.querySelector(".css-15bvnbz").scrollHeight;
   };
 
   const sendMessage = async (e) => {
@@ -76,6 +80,7 @@ const SingleChat = () => {
         socket.emit("new message", data);
         setMessages([...messages, data]);
         // await fetchMessages();
+        objDiv.scrollTop = objDiv.scrollHeight;
       } catch (err) {
         console.log(err);
       }
@@ -95,9 +100,8 @@ const SingleChat = () => {
   }, [selectedChat]);
 
   useEffect(() => {
-    console.log(istyping);
     socket.on("message received", async (newMessageReceived) => {
-      console.log(!notifications.includes({ newMessageReceived }));
+      // console.log(!notifications.includes({ newMessageReceived }));
       // console.log(newMessageReceived._id === not[0]._id);
       if (
         !selectedChatCompare ||
@@ -110,6 +114,8 @@ const SingleChat = () => {
         }
       } else {
         setMessages([...messages, newMessageReceived]);
+
+        objDiv.scrollTop = objDiv.scrollHeight;
         console.log(messages);
       }
     });
@@ -192,12 +198,12 @@ const SingleChat = () => {
                 margin="auto"
               />
             ) : (
-              <div className="messages">
+              <Stack overflowY="scroll" position={"end"} className="messages">
                 <ScrollableChat
                   messages={messages}
                   users={selectedChat.users}
                 />
-              </div>
+              </Stack>
             )}
 
             <FormControl

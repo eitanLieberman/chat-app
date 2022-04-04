@@ -1,8 +1,7 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Tooltip } from "@chakra-ui/tooltip";
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
-// import ScrollableFeed from "react-scrollable-feed";
 import {
   getSender,
   getSenderGroup,
@@ -20,7 +19,7 @@ const ScrollableChat = ({ messages, users }) => {
   console.log(users);
   const user = useSelector((state) => state.user.currentUser);
   return (
-    <ScrollableFeed>
+    <Box overflowY="scroll" style={{ overflow: "scroll" }}>
       {messages &&
         messages.map((m, i) => (
           <div style={{ display: "flex" }} key={m._id}>
@@ -60,7 +59,7 @@ const ScrollableChat = ({ messages, users }) => {
             </span>
           </div>
         ))}
-    </ScrollableFeed>
+    </Box>
   );
 };
 
