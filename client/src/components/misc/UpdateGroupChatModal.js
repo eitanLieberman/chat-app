@@ -1,4 +1,4 @@
-import { ViewIcon } from "@chakra-ui/icons";
+import { CloseIcon, ViewIcon } from "@chakra-ui/icons";
 import {
   Modal,
   ModalOverlay,
@@ -23,7 +23,7 @@ import UserListItem from "./UserListItem";
 import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
-import { userRequest } from "../../requestMethods";
+
 import { getChats, renameChat } from "../../redux/apiCalls";
 import { backToContacts, targetChat } from "../../redux/chatRedux";
 
@@ -254,7 +254,7 @@ const UpdateGroupChatModal = () => {
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent overflowY={"scroll"}>
           <ModalHeader
             fontSize="35px"
             fontFamily="Work sans"

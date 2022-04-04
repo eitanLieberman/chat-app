@@ -2,12 +2,14 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Badge } from "@chakra-ui/layout";
 import { Tooltip } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { getSenderFull } from "../../config/ChatLogics";
+
 import { startChat } from "../../redux/apiCalls";
 
-const UserBadgeItem = ({ user, handleFunction, admin, thisUser }) => {
+const UserBadgeItem = ({ user, handleFunction, admin, thisUser, chat }) => {
+  console.log(chat?.chatName);
   const dispatch = useDispatch();
   const handleStartChat = async () => {
+    if (chat?.chatName !== "main") return;
     if (thisUser._id === user._id) {
       return;
     }
@@ -15,7 +17,7 @@ const UserBadgeItem = ({ user, handleFunction, admin, thisUser }) => {
   };
   return (
     <Tooltip
-      label={thisUser && `click to message`}
+      label={chat?.chatName === "main" && `click to message`}
       hasArrow
       placement="bottom-end"
     >

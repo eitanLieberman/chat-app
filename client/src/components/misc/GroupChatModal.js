@@ -151,6 +151,7 @@ const GroupChatModal = () => {
             <Box w="100%" d="flex" flexWrap="wrap">
               {selectedUsers.map((u) => (
                 <UserBadgeItem
+                  chat={selectedChat}
                   key={u._id}
                   user={u}
                   handleFunction={() => handleDelete(u)}

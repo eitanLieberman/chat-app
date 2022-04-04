@@ -1,10 +1,10 @@
 import axios from "axios";
-import { publicRequest, userRequest } from "../requestMethods";
+import { publicRequest } from "../requestMethods";
 import { targetChat, loadChats, logoutChat } from "./chatRedux";
 import { loginFailure, loginStart, loginSuccess, logout } from "./userRedux";
 
 export const register = async (dispatch, user) => {
-  const res = await publicRequest.post("/auth/register", user);
+  await publicRequest.post("/auth/register", user);
 };
 
 export const login = async (dispatch, user) => {

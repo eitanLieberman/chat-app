@@ -3,7 +3,7 @@ const User = require("../models/user");
 const CryptoJS = require("crypto-js");
 const Jwt = require("jsonwebtoken");
 const { json } = require("express");
-
+//REGISTER
 router.post("/register", async (req, res) => {
   try {
     if (
@@ -29,6 +29,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+//LOGIN
 router.post("/login", async (req, res) => {
   try {
     let user = await User.findOne({
@@ -59,7 +60,6 @@ router.post("/login", async (req, res) => {
 
     return res.status(200).json({ ...others, accessToken });
   } catch (err) {
-    // res.status(500).json(err);
     json(err);
   }
 });
