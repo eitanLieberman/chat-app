@@ -41,20 +41,16 @@ const SideDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = async (e) => {
-    console.log("click");
     await logoutUser(dispatch);
   };
   const accessChat = async (userId) => {
-    console.log(userId);
     try {
       setLoadingChat(true);
       const data = await startChat(dispatch, userId, user.accessToken);
-      console.log(data);
+
       setLoadingChat(false);
       onClose();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleSearch = async (e) => {

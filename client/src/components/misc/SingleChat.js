@@ -33,10 +33,9 @@ const SingleChat = () => {
   const { selectedChat, chats, notifications } = useSelector(
     (state) => state.chat
   );
-  console.log(selectedChat);
+
   const dispatch = useDispatch();
   const backHandler = async (e) => {
-    console.log("click");
     await dispatch(backToContacts());
   };
 
@@ -61,7 +60,6 @@ const SingleChat = () => {
   };
 
   const sendMessage = async (e) => {
-    console.log(e.type);
     if ((e.key === "Enter" || e.type === "click") && newMessage) {
       try {
         setNewMessage("");
@@ -76,17 +74,15 @@ const SingleChat = () => {
           },
           config
         );
-        console.log(data);
+
         socket.emit("new message", data);
         setMessages([...messages, data]);
         // await fetchMessages();
         objDiv.scrollTop = objDiv.scrollHeight;
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   };
-  console.log(not);
+
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
@@ -101,14 +97,11 @@ const SingleChat = () => {
 
   useEffect(() => {
     socket.on("message received", async (newMessageReceived) => {
-      // console.log(!notifications.includes({ newMessageReceived }));
-      // console.log(newMessageReceived._id === not[0]._id);
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
         if (!notifications.includes({ newMessageReceived })) {
-          console.log("go------------");
           setNot([newMessageReceived]);
           dispatch(newNotification([newMessageReceived, ...notifications]));
         }
@@ -116,22 +109,20 @@ const SingleChat = () => {
         setMessages([...messages, newMessageReceived]);
 
         objDiv.scrollTop = objDiv.scrollHeight;
-        console.log(messages);
       }
     });
   });
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
-    console.log("handlingtype");
-    console.log(socketConnected);
+
     if (!socketConnected) return;
 
     if (!typing) {
       setTyping(true);
       socket.emit("typing", selectedChat._id);
     }
-    console.log(typing);
+
     let lastTypingTime = new Date().getTime();
     var timerLength = 3000;
     setTimeout(() => {

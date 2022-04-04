@@ -23,7 +23,7 @@ const MyChats = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   const { selectedChat, chats } = useSelector((state) => state.chat);
-  console.log(user);
+
   const toast = useToast();
   const handleJoinMain = async () => {
     const config = {

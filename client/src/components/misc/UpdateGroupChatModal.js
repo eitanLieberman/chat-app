@@ -47,7 +47,7 @@ const UpdateGroupChatModal = () => {
           headers: { token: `Bearer ${user.accessToken}` },
         };
         const { data } = await axios.get(`/api/users/find/${query}`, config);
-        console.log(data);
+
         setLoading(false);
         setSearchResult(data.filter((d) => d._id !== user._id));
       }

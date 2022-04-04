@@ -11,7 +11,7 @@ const router = require("express").Router();
 //start/access a chat
 router.post("/", verifyToken, async (req, res) => {
   const { userId } = req.body;
-  console.log(userId);
+
   if (!userId) {
     return res.status(400);
   }
@@ -44,7 +44,7 @@ router.post("/", verifyToken, async (req, res) => {
         "users",
         "-password"
       );
-      console.log("done");
+
       res.status(200).send(FullChat);
     } catch (err) {
       res.json(err);
@@ -55,7 +55,6 @@ router.post("/", verifyToken, async (req, res) => {
 //display all user chats
 router.get("/", verifyToken, async (req, res) => {
   try {
-    console.log(req.user);
     const findChat = await Chat.find({
       users: { $elemMatch: { $eq: req.user?.id || req.user?._id } },
     })
@@ -67,11 +66,9 @@ router.get("/", verifyToken, async (req, res) => {
       path: "latestMessage.sender",
       select: "username pic email",
     });
-    // console.log(result);
+
     return res.status(200).send(result);
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 });
 
 //create a group chat
@@ -96,7 +93,6 @@ router.post("/group", verifyToken, async (req, res) => {
       groupAdmin: req.user.id,
     });
 
-    console.log(groupChat);
     const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
       .populate("users", "-password")
       .populate("groupAdmin", "-password");
@@ -198,7 +194,6 @@ router.put("/leave", verifyToken, async (req, res) => {
 
   const targetChat = await Chat.findById(chatId);
 
-  console.log(targetChat.users);
   const removed = await Chat.findByIdAndUpdate(
     chatId,
     {

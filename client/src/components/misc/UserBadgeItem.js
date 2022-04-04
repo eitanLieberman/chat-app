@@ -6,11 +6,9 @@ import { getSenderFull } from "../../config/ChatLogics";
 import { startChat } from "../../redux/apiCalls";
 
 const UserBadgeItem = ({ user, handleFunction, admin, thisUser }) => {
-  console.log(user);
   const dispatch = useDispatch();
   const handleStartChat = async () => {
     if (thisUser._id === user._id) {
-      console.log("same");
       return;
     }
     await startChat(dispatch, user, thisUser.accessToken);

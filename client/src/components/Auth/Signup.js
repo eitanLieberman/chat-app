@@ -20,7 +20,6 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const postDetails = async (pics) => {
-    console.log(pics);
     if (pics === undefined) {
       toast({
         title: "please select an image",
@@ -44,14 +43,12 @@ function Signup() {
           body: data,
         }
       );
-      console.log(postPic);
+
       const picJson = await postPic.json();
-      console.log(picJson);
-      console.log(typeof picJson.url.toString());
+
       const picUrl = picJson.url.toString();
       await setPic(picUrl);
 
-      console.log(pic);
       setLoading(false);
       toast({
         title: "pic was uploaded",
@@ -66,9 +63,20 @@ function Signup() {
   const history = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
-    await register(dispatch, { username, email, password, pic });
-    await login(dispatch, { username, email, password });
-    history("/chats");
+    try {
+      await register(dispatch, { username, email, password, pic });
+      await login(dispatch, { username, email, password });
+      history("/chats");
+    } catch (err) {
+      toast({
+        title: "Oops!",
+        description: "please enter mail,password and mail(picture is optional)",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
   };
 
   return (

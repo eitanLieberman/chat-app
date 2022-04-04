@@ -45,7 +45,7 @@ const GroupChatModal = () => {
     }
     setSelectedUsers([...selectedUsers, userToAdd]);
   };
-  console.log(selectedUsers);
+
   const handleSearch = async (query) => {
     try {
       if (query.length > 0) {
@@ -54,7 +54,7 @@ const GroupChatModal = () => {
           headers: { token: `Bearer ${user.accessToken}` },
         };
         const { data } = await axios.get(`/api/users/find/${query}`, config);
-        console.log(data);
+
         setLoading(false);
         setSearchResult(data.filter((d) => d._id !== user._id));
       }

@@ -2,23 +2,30 @@ const router = require("express").Router();
 const User = require("../models/user");
 const CryptoJS = require("crypto-js");
 const Jwt = require("jsonwebtoken");
+const { json } = require("express");
 
 router.post("/register", async (req, res) => {
-  const newUser = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: CryptoJS.AES.encrypt(
-      req.body.password,
-      process.env.PASS_SEC
-    ).toString(),
-    pic: req.body.pic,
-  });
-
   try {
+    if (
+      req.body.username === "" ||
+      !req.body.email === "" ||
+      !req.body.password === ""
+    ) {
+      res.status(404).json("enter details");
+    }
+    const newUser = new User({
+      username: req.body.username,
+      email: req.body.email,
+      password: CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.PASS_SEC
+      ).toString(),
+      pic: req.body.pic,
+    });
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (err) {
-    res.status(500).json(err);
+    json(err);
   }
 });
 
@@ -53,7 +60,7 @@ router.post("/login", async (req, res) => {
     return res.status(200).json({ ...others, accessToken });
   } catch (err) {
     // res.status(500).json(err);
-    console.log(err);
+    json(err);
   }
 });
 

@@ -36,5 +36,5 @@ export const {
   backToContacts,
   newNotification,
 } = chatSlice.actions;
-console.log(chatSlice);
+
 export default chatSlice.reducer;
