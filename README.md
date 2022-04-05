@@ -34,25 +34,7 @@ npm install
 npm start
 ```
 
-2. install and run client(server should be running aswell)
 
-```bash
-cd client
-```
-
-```bash
-npm install
-```
-
-```bash
-cd server
-```
-```bash
-npm install
-```
-```bash
-npm start
-```
 2. install and run client(server should be running aswell)
 ```bash
 cd client
