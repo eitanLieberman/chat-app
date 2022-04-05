@@ -20,7 +20,7 @@ npm install
 ```bash
 npm start
 ```
-2. run npm start on localhost(server repository should be running as well)
+2. install and run client(server should be running aswell)
 ```bash
 cd client
 ```
