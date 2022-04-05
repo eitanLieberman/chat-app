@@ -21,6 +21,7 @@ const ScrollableChat = ({ messages, users, chat }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   console.log(user);
+
   return (
     <Box overflowY="scroll" style={{ overflow: "scroll" }}>
       {messages &&
@@ -73,7 +74,9 @@ const ScrollableChat = ({ messages, users, chat }) => {
               <Text size={"xs"} color="gray">
                 {new Date(m.createdAt).getHours() +
                   ":" +
-                  new Date(m.createdAt).getMinutes()}
+                  ((new Date(m.createdAt).getMinutes() + "").length > 1
+                    ? new Date(m.createdAt).getMinutes()
+                    : "0" + new Date(m.createdAt).getMinutes())}
               </Text>
             </span>
           </div>
