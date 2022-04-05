@@ -29,6 +29,7 @@ npm install
 ```
 ```bash
 npm start
+```
 
 ## Usage
 
