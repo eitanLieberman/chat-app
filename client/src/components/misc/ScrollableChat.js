@@ -1,9 +1,10 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Tooltip } from "@chakra-ui/tooltip";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 
 import {
   getSender,
+  getSenderFull,
   getSenderGroup,
   isLastMessage,
   isSameSender,
@@ -11,12 +12,15 @@ import {
   isSameUser,
 } from "../../config/ChatLogics";
 import ScrollableFeed from "react-scrollable-feed";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import React from "react";
+import { startChat } from "../../redux/apiCalls";
 
-const ScrollableChat = ({ messages, users }) => {
+const ScrollableChat = ({ messages, users, chat }) => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
+  console.log(user);
   return (
     <Box overflowY="scroll" style={{ overflow: "scroll" }}>
       {messages &&
@@ -48,8 +52,24 @@ const ScrollableChat = ({ messages, users }) => {
               }}
             >
               {" "}
-              <Text fontWeight={"bold"}>{getSenderGroup(m.sender, users)}</Text>
-              {m.content}
+              {chat?.isGroupChat && m?.sender?._id !== user._id && (
+                <Text
+                  fontWeight={"bold"}
+                  as={"button"}
+                  onClick={async () => {
+                    if (chat?.isGroupChat) {
+                      await startChat(
+                        dispatch,
+                        await getSenderGroup(m.sender, users),
+                        user.accessToken
+                      );
+                    }
+                  }}
+                >
+                  {getSenderGroup(m.sender, users)?.username}
+                </Text>
+              )}
+              <Text>{m.content}</Text>
               <Text size={"xs"} color="gray">
                 {new Date(m.createdAt).getHours() +
                   ":" +

@@ -44,7 +44,7 @@ export const getSender = (loggedUser, users) => {
 export const getSenderGroup = (loggedUser, users) => {
   for (const user of users) {
     if (user._id === loggedUser._id) {
-      return user.username;
+      return user;
     }
   }
 };

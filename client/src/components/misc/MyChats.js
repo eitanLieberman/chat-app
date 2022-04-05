@@ -94,13 +94,15 @@ const MyChats = () => {
       >
         My Chats
         <Menu>
-          <MenuButton as={Button}>...</MenuButton>
+          <MenuButton as={Button}>
+            <AddIcon />
+          </MenuButton>
           <MenuList>
             <GroupChatModal>
               <Button
                 d="flex"
                 fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-                rightIcon={<AddIcon />}
+                // rightIcon={<AddIcon />}
               >
                 New Group Chat
               </Button>

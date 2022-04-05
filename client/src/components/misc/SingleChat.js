@@ -193,6 +193,7 @@ const SingleChat = () => {
                 <ScrollableChat
                   messages={messages}
                   users={selectedChat.users}
+                  chat={selectedChat}
                 />
               </Stack>
             )}
