@@ -3,7 +3,7 @@
 ## Description
 
 
-This is a social app for chats. here you can
+This is a social app to caht in real time with socket.io. here you can
 
 - create a user account(actions in the app arr authorized via jwt)
 - chat in a main chat with all the app's users(you may enter or leave the group as you wish)
